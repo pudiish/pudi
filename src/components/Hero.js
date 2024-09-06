@@ -11,7 +11,7 @@ import { Link } from "react-scroll";
 import { TypeAnimation } from "react-type-animation";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import axios from "axios"; // Add axios for fetching data
+import axios from "axios";
 
 const navigation = [
   { name: "About Me", id: "about" },
@@ -25,22 +25,24 @@ export default function Hero() {
     localStorage.getItem("theme") ? localStorage.getItem("theme") : "light"
   );
   const [weatherPrompt, setWeatherPrompt] = useState("");
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
   useEffect(() => {
     localStorage.setItem("theme", theme);
-    const localTheme = localStorage.getItem("theme");
-    document.querySelector("html").setAttribute("data-theme", localTheme);
+    document.querySelector("html").setAttribute("data-theme", theme);
   }, [theme]);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
   useEffect(() => {
     AOS.init({ duration: 2000 });
   }, []);
 
+  // Updated API URL to HTTPS to avoid Mixed Content issue
   useEffect(() => {
     const getWeatherData = async () => {
       try {
         const apiKey = "b71bd37c34ad6762415d8f3fb7410bc6";
         const city = "Jamshedpur,Jharkhand";
-        const url = `http://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+        const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
 
         const response = await axios.get(url);
         const weatherCondition = response.data.weather[0].main;
@@ -70,14 +72,16 @@ export default function Hero() {
       Sand: "There's sand in the air. How does the sandy weather make you feel? 🌫️",
     };
 
-    return weatherConditions[weatherCondition] || `The weather in Jamshedpur is currently ${weatherCondition}. How does this weather make you feel?`;
+    return (
+      weatherConditions[weatherCondition] ||
+      `The weather in Jamshedpur is currently ${weatherCondition}. How does this weather make you feel?`
+    );
   };
-
-
 
   const handleToggle = (e) => {
     e.target.checked ? setTheme("dark") : setTheme("light");
   };
+
   return (
     <div>
       <header className="fixed bg-base-300 shadow-2xl shadow-neutral inset-x-0 top-0 z-50">
@@ -101,6 +105,7 @@ export default function Hero() {
           <div className="hidden lg:flex lg:gap-x-12">
             {navigation.map((item) => (
               <Link
+                key={item.id} // Added key to prevent warning
                 to={item.id}
                 spy={true}
                 smooth={true}
@@ -120,12 +125,12 @@ export default function Hero() {
                 onChange={handleToggle}
                 checked={theme === "light" ? false : true}
               />
-
               <SunIcon className="swap-off fill-current w-6 h-6" />
               <MoonIcon className="swap-on fill-current w-6 h-6" />
             </label>
           </div>
         </nav>
+
         <Dialog
           as="div"
           className="lg:hidden"
@@ -135,18 +140,16 @@ export default function Hero() {
           <div className="fixed inset-0 z-50" />
           <Dialog.Panel className="fixed inset-y-0 right-0 z-50 w-2/3 overflow-y-auto backdrop-brightness-90 backdrop-blur-2xl bg-transparent px-6 py-6 sm:max-w-sm">
             <div className="flex items-center justify-between">
-              <div className="-m-1.5 p-1.5">
-                <label className="swap swap-rotate">
-                  <input
-                    type="checkbox"
-                    className="hidden"
-                    onChange={handleToggle}
-                    checked={theme === "light" ? false : true}
-                  />
-                  <SunIcon className="swap-off fill-current w-6 h-6" />
-                  <MoonIcon className="swap-on fill-current w-6 h-6" />
-                </label>
-              </div>
+              <label className="swap swap-rotate">
+                <input
+                  type="checkbox"
+                  className="hidden"
+                  onChange={handleToggle}
+                  checked={theme === "light" ? false : true}
+                />
+                <SunIcon className="swap-off fill-current w-6 h-6" />
+                <MoonIcon className="swap-on fill-current w-6 h-6" />
+              </label>
               <button
                 type="button"
                 className="-m-2.5 rounded-md p-2.5"
@@ -161,6 +164,7 @@ export default function Hero() {
                 <div className="space-y-2 py-6">
                   {navigation.map((item) => (
                     <Link
+                      key={item.id} // Added key to prevent warning
                       to={item.id}
                       spy={true}
                       smooth={true}
@@ -177,6 +181,7 @@ export default function Hero() {
           </Dialog.Panel>
         </Dialog>
       </header>
+
       <div className="py-24 sm:py-32">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div
@@ -205,58 +210,16 @@ export default function Hero() {
                     sequence={[
                       "I'm a Software Developer",
                       2000,
-                      "I'm a Web Developer",
+                      "I'm a Cybersecurity Enthusiast",
                       2000,
                     ]}
-                    speed={50}
+                    wrapper="div"
+                    cursor={true}
                     repeat={Infinity}
+                    style={{ fontSize: "1em" }}
                   />
                 </p>
-                <div className="mt-10 flex items-center justify-center gap-x-6">
-                  <p>
-                    I am a dedicated software developer with a cybersecurity background, passionate about AI and machine learning. My hackathon experience has sharpened my problem-solving skills and teamwork. I’m eager to apply my expertise to drive impactful, innovative solutions.                  </p>
-                </div>
-                <div>{weatherPrompt}</div>
-                <div className="mt-10 flex items-center justify-center gap-x-4">
-                  <a href="https://www.linkedin.com/in/swarnapudi-ishwar-baa1411b0/" target="_blank" rel="noopener noreferrer">
-                    <button className="btn btn-outline btn-square">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="currentColor"
-                        className="h-8 w-8"
-                        viewBox="0 0 16 16"
-                      >
-                        <path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854V1.146zm4.943 12.248V6.169H2.542v7.225h2.401zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248-.822 0-1.359.54-1.359 1.248 0 .694.521 1.248 1.327 1.248h.016zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016a5.54 5.54 0 0 1 .016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225h2.4z" />
-                      </svg>
-                    </button>
-                  </a>
-                  <a href="https://github.com/pudiish" target="_blank" rel="noopener noreferrer">
-                    <button className="btn btn-outline btn-square">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="h-8 w-8"
-                        fill="currentColor"
-                        viewBox="0 0 16 16"
-                      >
-                        <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z" />
-                      </svg>
-                    </button>
-                  </a>
-                  <a href="https://drive.google.com/file/d/1hnk6xt7Ez-fXTiuXDom34ZzxbES6ti61/view?usp=sharing.pdf" target="_blank" rel="noopener noreferrer">
-                    <button className="btn btn-outline btn-square">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="h-8 w-8"
-                        fill="currentColor"
-                        viewBox="0 0 16 16"
-                      >
-                        <path d="M3.612 15.443c-.396.2-.866-.047-.866-.502V1.06c0-.455.47-.702.866-.502l11.314 7.47c.396.26.396.84 0 1.1l-11.314 7.47z" />
-                      </svg>
-                    </button>
-                  </a>
-
-                </div>
-
+                <div className="mt-6 text-xl">{weatherPrompt}</div>
               </div>
             </div>
           </div>
