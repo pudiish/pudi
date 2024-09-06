@@ -1,11 +1,53 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
 export default function Contact() {
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    message: "",
+  });
+
+  const [responseMessage, setResponseMessage] = useState("");
+  const [loading, setLoading] = useState(false);
+
   useEffect(() => {
     AOS.init({ duration: 1000 });
   }, []);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setResponseMessage(""); // Clear previous messages
+
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        setResponseMessage("Your message has been sent successfully!");
+      } else {
+        setResponseMessage("There was an issue sending your message.");
+      }
+    } catch (error) {
+      setResponseMessage("Error: Unable to send message.");
+    }
+
+    setLoading(false);
+  };
+
   return (
     <div className="py-24 sm:py-32" id="contact">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
@@ -16,15 +58,14 @@ export default function Contact() {
           </p>
         </div>
         <form
-          action=""
-          method="POST"
+          onSubmit={handleSubmit}
           className="mx-auto mt-16 max-w-xl sm:mt-20"
           data-aos="zoom-in"
         >
           <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
             <div>
               <label
-                htmlFor="first-name"
+                htmlFor="firstName"
                 className="block text-sm font-semibold leading-6"
               >
                 First name
@@ -33,16 +74,18 @@ export default function Contact() {
                 <input
                   type="text"
                   required
-                  name="first-name"
-                  id="first-name"
+                  name="firstName"
+                  id="firstName"
                   autoComplete="given-name"
+                  value={formData.firstName}
+                  onChange={handleChange}
                   className="block bg-transparent w-full rounded-md border-0 px-3.5 py-2 text-current ring-1 ring-inset ring-base-content focus:ring-2 focus:ring-inset focus:ring-current sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
             <div>
               <label
-                htmlFor="last-name"
+                htmlFor="lastName"
                 className="block text-sm font-semibold leading-6"
               >
                 Last name
@@ -51,9 +94,11 @@ export default function Contact() {
                 <input
                   type="text"
                   required
-                  name="last-name"
-                  id="last-name"
+                  name="lastName"
+                  id="lastName"
                   autoComplete="family-name"
+                  value={formData.lastName}
+                  onChange={handleChange}
                   className="block bg-transparent w-full rounded-md border-0 px-3.5 py-2 text-current ring-1 ring-inset ring-base-content focus:ring-2 focus:ring-inset focus:ring-current sm:text-sm sm:leading-6"
                 />
               </div>
@@ -72,6 +117,8 @@ export default function Contact() {
                   name="email"
                   id="email"
                   autoComplete="email"
+                  value={formData.email}
+                  onChange={handleChange}
                   className="block bg-transparent w-full rounded-md border-0 px-3.5 py-2 text-current ring-1 ring-inset ring-base-content focus:ring-2 focus:ring-inset focus:ring-current sm:text-sm sm:leading-6"
                 />
               </div>
@@ -89,17 +136,25 @@ export default function Contact() {
                   required
                   id="message"
                   rows={4}
+                  value={formData.message}
+                  onChange={handleChange}
                   className="block bg-transparent w-full rounded-md border-0 px-3.5 py-2 text-current ring-1 ring-inset ring-base-content focus:ring-2 focus:ring-inset focus:ring-current sm:text-sm sm:leading-6"
-                  defaultValue={""}
                 />
               </div>
             </div>
           </div>
           <div className="mt-10">
-            <button type="submit" className="btn btn-outline text-sm w-full">
-              Send it
+            <button
+              type="submit"
+              className="btn btn-outline text-sm w-full"
+              disabled={loading}
+            >
+              {loading ? "Sending..." : "Send it"}
             </button>
           </div>
+          {responseMessage && (
+            <p className="mt-4 text-center text-sm">{responseMessage}</p>
+          )}
         </form>
       </div>
     </div>
