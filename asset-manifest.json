@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/github.io/pudi/static/css/main.64891958.css",
+    "main.js": "/github.io/pudi/static/js/main.d175f468.js",
+    "static/media/avatar.png": "/github.io/pudi/static/media/avatar.1045459857023c861c5d.png",
+    "index.html": "/github.io/pudi/index.html",
+    "main.64891958.css.map": "/github.io/pudi/static/css/main.64891958.css.map",
+    "main.d175f468.js.map": "/github.io/pudi/static/js/main.d175f468.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.64891958.css",
+    "static/js/main.d175f468.js"
+  ]
+}
