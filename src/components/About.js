@@ -109,15 +109,15 @@ export default function About() {
   <p className="mt-3 list-item list-inside">
     <strong>Chinmaya Vidyalaya, Jharkhand</strong> - Senior Secondary School (Board: CBSE)
   </p>
-  <ul className="list-disc list-inside ml-5 mt-1">
+  {/* <ul className="list-disc list-inside ml-5 mt-1">
     <li>Percentage: 78.6/100</li>
-  </ul>
+  </ul> */}
   <p className="mt-3 list-item list-inside">
     <strong>Kerala Public School, Jharkhand</strong> - Secondary School (Board: CBSE)
   </p>
-  <ul className="list-disc list-inside ml-5 mt-1">
+  {/* <ul className="list-disc list-inside ml-5 mt-1">
     <li>Percentage: 76.1/100</li>
-  </ul>
+  </ul> */}
 </div>
 
             </div>
