@@ -39,7 +39,7 @@ export default function Hero() {
     const getWeatherData = async () => {
       try {
         const apiKey = "b71bd37c34ad6762415d8f3fb7410bc6";
-        const city = "Jamshedpur,Jharkhand";
+        const city = "Amaravati, Andhra Pradesh";
         const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
 
         const response = await axios.get(url);
