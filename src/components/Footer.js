@@ -26,7 +26,7 @@ export default function Footer() {
             </svg>
           </button>
         </a>
-        <a href="swarnapudiishwar@gmail.com" target="_blank" rel="noopener noreferrer">
+        <a href="mailto:swarnapudiishwar@gmail.com" target="_blank" rel="noopener noreferrer">
 
           <button className="btn btn-outline btn-square">
             <svg
