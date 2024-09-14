@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/pudi/static/css/main.50bc6a25.css",
-    "main.js": "/pudi/static/js/main.01e6c847.js",
+    "main.js": "/pudi/static/js/main.0da90f5a.js",
     "static/media/avatar.png": "/pudi/static/media/avatar.1045459857023c861c5d.png",
     "index.html": "/pudi/index.html",
     "main.50bc6a25.css.map": "/pudi/static/css/main.50bc6a25.css.map",
-    "main.01e6c847.js.map": "/pudi/static/js/main.01e6c847.js.map"
+    "main.0da90f5a.js.map": "/pudi/static/js/main.0da90f5a.js.map"
   },
   "entrypoints": [
     "static/css/main.50bc6a25.css",
-    "static/js/main.01e6c847.js"
+    "static/js/main.0da90f5a.js"
   ]
 }
