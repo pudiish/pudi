@@ -4,7 +4,6 @@ export default function Footer() {
       <div className="mt-10 flex items-center justify-center gap-x-4">
       <a href="https://www.linkedin.com/in/swarnapudi-ishwar-baa1411b0/" target="_blank" rel="noopener noreferrer">
         <button className="btn btn-outline btn-square">
-          
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="h-8 w-8"
