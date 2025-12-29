@@ -11,7 +11,6 @@ module.exports = {
   daisyui: {
     themes: ["light", "dark"],
   },
-  base: "/deploy-github/",
   plugins: [
     require("@tailwindcss/aspect-ratio"),
     require("@tailwindcss/forms"),
