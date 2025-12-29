@@ -38,9 +38,8 @@ export default function Projects() {
   return (
     <div id="projects">
       <div className="mx-auto max-w-2xl px-6 py-24 sm:px-6 sm:py-32 lg:max-w-7xl lg:px-8">
-        <h2 className="text-lg leading-7">Browse my GitHub</h2>
         <p className="mt-2 text-4xl font-bold tracking-tight sm:text-6xl">
-          Top Projects
+          Projects
         </p>
         <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
           {repos.map((repo) => (

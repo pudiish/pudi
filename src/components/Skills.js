@@ -32,8 +32,13 @@ const frontend = [
 ];
 const backend = [
   {
-    name: "NodeJS",
-    value: 30,
+    name: "AWS",
+    value: 75,
+    icon: CheckCircleIcon,
+  },
+  {
+    name: "DevOps",
+    value: 80,
     icon: CheckCircleIcon,
   },
   {
@@ -42,18 +47,28 @@ const backend = [
     icon: CheckCircleIcon,
   },
   {
-    name: "MySQL",
-    value: 50,
+    name: "Shell Scripting",
+    value: 70,
     icon: CheckCircleIcon,
   },
   {
-    name: "APIs",
-    value: 20,
+    name: "Jenkins",
+    value: 65,
+    icon: CheckCircleIcon,
+  },
+  {
+    name: "NodeJS",
+    value: 70,
     icon: CheckCircleIcon,
   },
   {
     name: "MongoDB",
-    value: 40,
+    value: 60,
+    icon: CheckCircleIcon,
+  },
+  {
+    name: "MySQL",
+    value: 60,
     icon: CheckCircleIcon,
   }
 ];
@@ -66,7 +81,6 @@ export default function Skills() {
     <div className="py-24 sm:py-32" id="skills">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto max-w-2xl text-center">
-          <h2 className="text-xl leading-7">Explore my</h2>
           <p className="mt-2 text-4xl font-bold tracking-tight sm:text-6xl">
             Skills
           </p>
@@ -104,7 +118,7 @@ export default function Skills() {
             data-aos="zoom-in"
           >
             <p className="text-2xl text-center font-bold mb-6">
-              Backend Development
+              Backend & DevOps
             </p>
             <dl className="grid max-w-xl grid-cols-1 gap-x-8 gap-y-6 lg:max-w-none lg:grid-cols-2 lg:gap-y-6">
               {backend.map((backend) => (

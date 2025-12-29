@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import { submitContactForm } from "../services/contactService";
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -11,6 +12,7 @@ export default function Contact() {
   });
 
   const [responseMessage, setResponseMessage] = useState("");
+  const [messageType, setMessageType] = useState(""); // "success" or "error"
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
@@ -20,41 +22,56 @@ export default function Contact() {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
+    // Clear message when user starts typing again
+    if (responseMessage) {
+      setResponseMessage("");
+      setMessageType("");
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    setResponseMessage(""); // Clear previous messages
+    setResponseMessage("");
+    setMessageType("");
 
     try {
-      const response = await fetch("/api/contact", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
+      const result = await submitContactForm(formData);
 
-      if (response.ok) {
-        setResponseMessage("Your message has been sent successfully!");
+      if (result.success) {
+        setResponseMessage(result.message);
+        setMessageType("success");
+        // Reset form on success
+        setFormData({
+          firstName: "",
+          lastName: "",
+          email: "",
+          message: "",
+        });
+        // Clear success message after 5 seconds
+        setTimeout(() => {
+          setResponseMessage("");
+          setMessageType("");
+        }, 5000);
       } else {
-        setResponseMessage("There was an issue sending your message.");
+        setResponseMessage(result.message);
+        setMessageType("error");
       }
     } catch (error) {
-      setResponseMessage("Error: Unable to send message.");
+      console.error("Error in handleSubmit:", error);
+      setResponseMessage("Error: Unable to send message. Please try again later.");
+      setMessageType("error");
+    } finally {
+      setLoading(false);
     }
-
-    setLoading(false);
   };
 
   return (
     <div className="py-24 sm:py-32" id="contact">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mx-auto max-w-2xl text-center">
-          <h2 className="text-xl leading-7">Get in touch</h2>
           <p className="mt-2 text-4xl font-bold tracking-tight sm:text-6xl">
-            Contact Me
+            Contact
           </p>
         </div>
         <form
@@ -153,7 +170,15 @@ export default function Contact() {
             </button>
           </div>
           {responseMessage && (
-            <p className="mt-4 text-center text-sm">{responseMessage}</p>
+            <div
+              className={`mt-4 p-4 rounded-lg text-center text-sm ${
+                messageType === "success"
+                  ? "bg-success/20 text-success"
+                  : "bg-error/20 text-error"
+              }`}
+            >
+              {responseMessage}
+            </div>
           )}
         </form>
       </div>

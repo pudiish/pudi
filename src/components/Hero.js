@@ -11,20 +11,12 @@ import { Link } from "react-scroll";
 import { TypeAnimation } from "react-type-animation";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import axios from "axios"; // Add axios for fetching data
-
-const navigation = [
-  { name: "About Me", id: "about" },
-  { name: "Skills", id: "skills" },
-  { name: "Projects", id: "projects" },
-  { name: "Contact Me", id: "contact" },
-];
+import { navigation } from "../constants/navigation";
 
 export default function Hero() {
   const [theme, setTheme] = useState(
     localStorage.getItem("theme") ? localStorage.getItem("theme") : "light"
   );
-  const [weatherPrompt, setWeatherPrompt] = useState("");
   useEffect(() => {
     localStorage.setItem("theme", theme);
     const localTheme = localStorage.getItem("theme");
@@ -34,44 +26,6 @@ export default function Hero() {
   useEffect(() => {
     AOS.init({ duration: 2000 });
   }, []);
-
-  useEffect(() => {
-    const getWeatherData = async () => {
-      try {
-        const apiKey = "b71bd37c34ad6762415d8f3fb7410bc6";
-        const city = "Amaravati, Andhra Pradesh";
-        const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
-
-        const response = await axios.get(url);
-        const weatherCondition = response.data.weather[0].main;
-        const sentimentPrompt = generateSentimentPrompt(weatherCondition);
-        setWeatherPrompt(sentimentPrompt);
-      } catch (error) {
-        console.error("Error fetching weather data:", error);
-      }
-    };
-
-    getWeatherData();
-  }, []);
-
-  const generateSentimentPrompt = (weatherCondition) => {
-    const weatherConditions = {
-      Clear: "It's a beautiful day! How does the clear sky make you feel? ☀️",
-      Clouds: "It's a cloudy day. What are your thoughts on the cloudy weather? ☁️",
-      Rain: "It's raining in Jamshedpur. How does the rain affect your mood? ☔",
-      Drizzle: "It's drizzling outside. How do you feel about this light rain? 🌦️",
-      Thunderstorm: "There's a thunderstorm in Jamshedpur. How do you react to thunderstorms? ⛈️",
-      Snow: "It's snowing in Jamshedpur! What are your feelings about snow? ❄️",
-      Mist: "There's mist in the air. How does the misty weather make you feel? 🌫️",
-      Haze: "It's hazy outside. How does the haze affect your mood? 🌫️",
-      Fog: "There's fog in Jamshedpur. How do you feel about foggy weather? 🌫️",
-      Smoke: "There's smoke in the air. How does the smoky weather make you feel? 🌫️",
-      Dust: "It's a dusty day. How do you feel about the dusty weather? 🌫️",
-      Sand: "There's sand in the air. How does the sandy weather make you feel? 🌫️",
-    };
-
-    return weatherConditions[weatherCondition] || `The weather in Jamshedpur is currently ${weatherCondition}. How does this weather make you feel?`;
-  };
 
 
 
@@ -101,6 +55,7 @@ export default function Hero() {
           <div className="hidden lg:flex lg:gap-x-12">
             {navigation.map((item) => (
               <Link
+                key={item.id}
                 to={item.id}
                 spy={true}
                 smooth={true}
@@ -161,12 +116,14 @@ export default function Hero() {
                 <div className="space-y-2 py-6">
                   {navigation.map((item) => (
                     <Link
+                      key={item.id}
                       to={item.id}
                       spy={true}
                       smooth={true}
                       offset={50}
                       duration={500}
                       className="-mx-3 block rounded-lg px-3 py-2 font-semibold leading-7 btn btn-ghost"
+                      onClick={() => setMobileMenuOpen(false)}
                     >
                       {item.name}
                     </Link>
@@ -203,20 +160,20 @@ export default function Hero() {
                 <p className="mt-6 text-2xl leading-8">
                   <TypeAnimation
                     sequence={[
-                      "I'm a Software Developer",
+                      "Assoc Programmer Analyst @Moody's",
                       2000,
-                      "I'm a Web Developer",
+                      "DevOps Engineer",
+                      2000,
+                      "Software Developer",
                       2000,
                     ]}
                     speed={50}
                     repeat={Infinity}
                   />
                 </p>
-                <div className="mt-10 flex items-center justify-center gap-x-6">
-                  <p>
-                    I am a dedicated software developer with a cybersecurity background, passionate about AI and machine learning. My hackathon experience has sharpened my problem-solving skills and teamwork. I’m eager to apply my expertise to drive impactful, innovative solutions.                  </p>
-                </div>
-                <div>{weatherPrompt}</div>
+                <p className="mt-8 text-lg text-center max-w-2xl mx-auto opacity-90">
+                  I solve problems, automate what I can. Equal parts logic, chaos & Google search wizardry 🔍
+                </p>
                 <div className="mt-10 flex items-center justify-center gap-x-4">
                   <a href="https://www.linkedin.com/in/swarnapudi-ishwar-baa1411b0/" target="_blank" rel="noopener noreferrer">
                     <button className="btn btn-outline btn-square">
@@ -242,7 +199,7 @@ export default function Hero() {
                       </svg>
                     </button>
                   </a>
-                  <a href="https://drive.google.com/file/d/1hnk6xt7Ez-fXTiuXDom34ZzxbES6ti61/view?usp=sharing.pdf" target="_blank" rel="noopener noreferrer">
+                  <a href="https://drive.google.com/file/d/1hnk6xt7Ez-fXTiuXDom34ZzxbES6ti61/view?usp=sharing" target="_blank" rel="noopener noreferrer">
                     <button className="btn btn-outline btn-square">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"

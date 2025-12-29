@@ -16,12 +16,12 @@ const features = [
   },
   {
     name: "Email:",
-    description: "swarnapudiishwar@gmai.com",
+    description: "swarnapudiishwar@gmail.com",
     icon: AtSymbolIcon,
   },
   {
     name: "Location:",
-    description: "Jamshedpur,  Jharkhand, India",
+    description: "Bengaluru, Karnataka, India",
     icon: MapPinIcon,
   },
 ];
@@ -39,14 +39,12 @@ export default function About() {
         <div className="lg:col-span-2 lg:col-start-1 lg:row-start-1 lg:mx-auto lg:grid lg:w-full lg:max-w-7xl lg:grid-cols-2 lg:gap-x-8 lg:px-8">
           <div className="lg:pr-4">
             <div className="lg:max-w-lg">
-              <h2 className="text-lg leading-7">Get to know more</h2>
               <p className="mt-2 text-4xl font-bold tracking-tight sm:text-6xl">
                 About Me
               </p>
               <p className="mt-6 text-lg leading-8" data-aos="fade-right">
-              I am a driven and results-oriented software developer with a strong background in cybersecurity and a passion for AI and machine learning.
-              My extensive experience in hackathons has sharpened my problem-solving abilities and honed my collaborative skills, enabling me to excel in fast-paced,
-              team-driven environments. I am eager to leverage my technical expertise to tackle complex challenges and drive innovative solutions that make a significant impact.
+              Curious human trying to make sense of tech ☕. Building cool stuff, breaking it occasionally, 
+              and learning something new every day 🚀.
               </p>
             </div>
           </div>
@@ -75,19 +73,23 @@ export default function About() {
     Work Experience
   </h2>
   <p className="mt-3 list-item list-inside">
-    <strong>SmartInternz</strong> - Salesforce Developer Virtual Internship
+    <strong>Moody's Analytics</strong> - Assoc Programmer Analyst (Jul 2025 - Present)
   </p>
   <ul className="list-disc list-inside ml-5 mt-1">
-    <li>Developed skills in Apex programming, testing, debugging, and setting up VS Code & Salesforce CLI.</li>
-    <li>Gained hands-on experience with Lightning Web Components (LWC) and API integration.</li>
-    <li>Earned Super Badges in Apex Specialist, Process Automation Specialist, and Developer Super Set.</li>
+    <li>DevOps practices and AWS deployment automation.</li>
+    <li>Infrastructure automation and system reliability improvements.</li>
   </ul>
   <p className="mt-3 list-item list-inside">
-    <strong>Coincent.ai</strong> - Brand Ambassador Intern (May 2024 - June 2024)
+    <strong>Salesforce</strong> - Intern (May 2024 - Jun 2024)
   </p>
   <ul className="list-disc list-inside ml-5 mt-1">
-    <li>Represented the brand in digital campaigns, increasing brand awareness among targeted demographics.</li>
-    <li>Collaborated with the marketing team to enhance engagement strategies, leading to an increase in user interactions.</li>
+    <li>Apex programming, LWC development, and API integration.</li>
+  </ul>
+  <p className="mt-3 list-item list-inside">
+    <strong>Coincent.ai</strong> - Brand Ambassador (Jan 2022 - Sep 2022)
+  </p>
+  <ul className="list-disc list-inside ml-5 mt-1">
+    <li>Digital campaigns and brand awareness initiatives.</li>
   </ul>
 </div>
 
@@ -100,11 +102,11 @@ export default function About() {
     Education
   </h2>
   <p className="mt-3 list-item list-inside">
-    <strong>SRM University, Andhra Pradesh</strong> - B.Tech in Computer Science and Engineering with Specialization in Cybersecurity
+    <strong>SRM University, AP</strong> - Bachelor of Technology - BTech, Computer Science
   </p>
   <ul className="list-disc list-inside ml-5 mt-1">
-    <li>Relevant Coursework: Data Structures and Algorithms, Object Oriented Programming, Database Management, Artificial Intelligence, Machine Learning Algorithms, Cybersecurity</li>
-    <li>CGPA: 8.05/10.0 (Sep 2021 - Jul 2025)</li>
+    <li>Grade: 9.0/10.0 (Sep 2021 - 2025)</li>
+    <li>Specialization in Cybersecurity, AI & ML</li>
   </ul>
   <p className="mt-3 list-item list-inside">
     <strong>Chinmaya Vidyalaya, Jharkhand</strong> - Senior Secondary School (Board: CBSE)
